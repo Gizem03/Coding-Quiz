@@ -8,6 +8,8 @@ var questionTitle = document.querySelector("#question-title");
 
 var choicesWrap = document.querySelector("#choices");
 
+var feedback = document.getElementById("feedback");
+
 var startButton = document.querySelector("#start");
 
 startButton.addEventListener("click", startQuiz);
@@ -36,10 +38,35 @@ function startQuiz() {
 function displayQuestion() {
   var currentQuestion = questions[currentQuestionIndex];
   questionTitle.innerText = currentQuestion.title;
-  for (var i = 0; i < currentQuestion.choices.length; i++) {
+  choicesWrap.innerHTML = "";
+  for (let i = 0; i < currentQuestion.choices.length; i++) {
     var button = document.createElement("button");
     button.className = "choice";
     button.innerText = i + 1 + ".  " + currentQuestion.choices[i];
+    button.addEventListener("click", function () {
+      checkAnswer(currentQuestion.choices[i]);
+    });
     choicesWrap.append(button);
   }
+}
+
+function checkAnswer(choice) {
+  //get the current question
+  var currentQuestion = questions[currentQuestionIndex];
+  console.log(choice, currentQuestion);
+  // check choice against answer of the current question
+  var result = choice === currentQuestion.answer;
+
+  // write the result back to html feedback id div add set time out
+  feedback.innerHTML = result;
+  feedback.className = "show";
+  setTimeout(function () {
+    feedback.className = "hide";
+    //move on to next question
+    currentQuestionIndex++;
+    // call display question
+    displayQuestion();
+  }, 1000);
+
+  //TODO calculate score and time
 }
