@@ -23,6 +23,13 @@ I was tasked with building a timed coding quiz with multiple-choice questions. J
 
 The site is deployed here: https://gizem03.github.io/Coding-Quiz/
 
+When you deploy or run the application you will see the following site on your browser.
+
+Choosing the true answer:
+![screenshot](assets/code-quiz-true-screenshot.png)
+Choosing the false answer:
+![screenshot](assets/code-quiz-false-screenshot.png)
+
 ## Credits
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript
