@@ -12,10 +12,25 @@ var startButton = document.querySelector("#start");
 
 startButton.addEventListener("click", startQuiz);
 
+var startingTime = 90;
+
+var currentTime = startingTime;
+
+var intervalId;
+
+function updateTime() {
+  currentTime--;
+  document.getElementById("time").innerHTML = currentTime;
+  if (currentTime === 0) {
+    clearInterval(intervalId);
+  }
+}
+
 function startQuiz() {
   displayQuestion();
   startWrap.className = "hide";
   questionWrap.className = "show";
+  intervalId = setInterval(updateTime, 1000);
 }
 
 function displayQuestion() {
