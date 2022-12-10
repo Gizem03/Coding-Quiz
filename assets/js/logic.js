@@ -1,6 +1,8 @@
 var currentQuestionIndex = 0;
 
 var questionWrap = document.querySelector("#questions");
+var endScreen = document.querySelector("#end-screen");
+var finalScore = document.querySelector("#final-score");
 
 var startWrap = document.querySelector("#start-screen");
 
@@ -36,6 +38,20 @@ function startQuiz() {
 }
 
 function displayQuestion() {
+  // todo check if you are at the end of the quiz
+  if (currentQuestionIndex === questions.length) {
+    // we are at the end
+
+    questionWrap.className = "hide";
+    endScreen.className = "show";
+
+    // stop the timer
+    clearInterval(intervalId);
+    // use the remaining time as score?
+    finalScore.innerText = currentTime;
+
+    return;
+  }
   var currentQuestion = questions[currentQuestionIndex];
   questionTitle.innerText = currentQuestion.title;
   choicesWrap.innerHTML = "";
@@ -53,10 +69,12 @@ function displayQuestion() {
 function checkAnswer(choice) {
   //get the current question
   var currentQuestion = questions[currentQuestionIndex];
-  console.log(choice, currentQuestion);
+
   // check choice against answer of the current question
   var result = choice === currentQuestion.answer;
-
+  if (result === false) {
+    currentTime = currentTime - 10;
+  }
   // write the result back to html feedback id div add set time out
   feedback.innerHTML = result;
   feedback.className = "show";
@@ -67,6 +85,4 @@ function checkAnswer(choice) {
     // call display question
     displayQuestion();
   }, 1000);
-
-  //TODO calculate score and time
 }
