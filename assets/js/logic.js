@@ -76,8 +76,8 @@ function checkAnswer(choice) {
     currentTime = currentTime - 10;
   }
   // write the result back to html feedback id div add set time out
-  feedback.innerHTML = result;
-  feedback.className = "show";
+  feedback.innerText = result;
+  feedback.className = "feedback show";
   setTimeout(function () {
     feedback.className = "hide";
     //move on to next question
